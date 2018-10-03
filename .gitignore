@@ -1,0 +1,6 @@
+#ignore precompiled python files
+*.pyc
+#ignore documentation build directory
+/doc/build/*
+#ignore pip install info
+tonic.egg-info/*
