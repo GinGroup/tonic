@@ -31,15 +31,10 @@ install:
   - conda update -q conda
   #Provide output for debugging
   - conda info -a
-  - conda create -q -n test-environment -c conda-forge python=$TRAVIS_PYTHON_VERSION fenics
+  - conda create -q -n test-environment -c conda-forge python=$TRAVIS_PYTHON_VERSION fenics pytest pytest-cov coveralls black
   - source activate test-environment
-  #We now need to install pytest,coveralls and black. At the moment we don't use tox, but instead set everying up with anaconda (this might not be best practice...)
-  - conda install -q -c conda-forge pytest
-  - conda install -q -c conda-forge pytest-cov
-  - conda install -q -c conda-forge coveralls
-  - conda install -q -c conda-forge black
   #We install the package
-  - pip install -e
+  - pip install -e .
 
 script: provision/travis/run-tests.sh
 after_success:
