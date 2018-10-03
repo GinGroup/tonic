@@ -3,7 +3,7 @@ FE Codebase for shape optimization in fluid problems
 
 ## Cheatsheet for contributors
 
-###Initial setup
+### Initial setup
 
 Initial setup is via:
 
@@ -39,7 +39,7 @@ git checkout -b myFeature
 4. ???
 5. Profit!
 
-###Building of documentation
+### Building of documentation
 
 Make sure you've got sphinx installed. In the doc directory simply do:
 ```
@@ -48,7 +48,7 @@ make html
 
 This builds an html version of the documentation that will be in doc/build
 
-###Testing
+### Testing
 
 Will need to see what the alternative to tox is with anaconda.
 
