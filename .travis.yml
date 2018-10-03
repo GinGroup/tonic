@@ -24,7 +24,7 @@ install:
   - sudo apt-get update
   #If we decide to support python 2.7 then we need to download a different version of miniconda
   - wget https://repo.continuum.io/miniconda/Miniconda3-latest-Linux-x86_64.sh -O miniconda.sh
-  - bash minconda.sh -b - p $HOME/minconda
+  - bash miniconda.sh -b - p $HOME/miniconda
   - export PATH="$HOME/miniconda/bin:$PATH"
   - hash -r
   - conda config --set always_yes yes --set changeps1 no
