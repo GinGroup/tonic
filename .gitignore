@@ -4,3 +4,7 @@
 /doc/build/*
 #ignore pip install info
 tonic.egg-info/*
+#ignore coverage info
+.coverage
+#ignore pytest chace
+.pytest_cache/*

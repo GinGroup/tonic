@@ -1,0 +1,53 @@
+#We don't actually use the Travis python, but this keeps everything organised
+language: python
+
+#TODO: if we want to support python 2.7 then we need to alter the install script to make sure it uses the correct version of miniconda
+#TODO: add OSX tests
+matrix:
+  include:
+      - name: "PY 3.6 Tests"
+        python: "3.6"
+        env: TEST_ENV=py36-test
+      - name: "PY 3.6 Doc"
+        python: "3.6"
+        env: TEST_ENV=doc 
+      - name: "PY 3.6 Black"
+        python: "3.6"
+        env: TEST_ENV=black
+
+#We need sudo access
+dist: trusty
+sudo: true
+
+#We setup conda and install fenics through conda
+install:
+  - sudo apt-get update
+  #If we decide to support python 2.7 then we need to download a different version of miniconda
+  - wget https://repo.continuum.io/miniconda/Miniconda3-latest-Linux-x86_64.sh -O miniconda.sh
+  - bash minconda.sh -b - p $HOME/minconda
+  - export PATH="$HOME/miniconda/bin:$PATH"
+  - hash -r
+  - conda config --set always_yes yes --set changeps1 no
+  - conda update -q conda
+  #Provide output for debugging
+  - conda info -a
+  - conda create -q -n test-environment -c conda-forge python=$TRAVIS_PYTHON_VERSION fenics
+  - source activate fenics
+  #We now need to install pytest,coveralls and black. At the moment we don't use tox, but instead set everying up with anaconda (this might not be best practice...)
+  - conda install -q -c conda-forge pytest
+  - conda install -q -c conda-forge pytest-cov
+  - conda install -q -c conda-forge coveralls
+  - conda install -q -c conda-forge black
+  #We install the package
+  - pip install -e
+
+script: provision/travis/run-tests.sh
+after_success:
+  - coveralls
+
+
+
+
+
+  
+
