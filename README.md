@@ -50,5 +50,17 @@ This builds an html version of the documentation that will be in doc/build
 
 ### Testing
 
-Will need to see what the alternative to tox is with anaconda.
+Tox doesn't seem to work very well with anaconda. Under the assumption we want to stick with using anaconda to install FEniCS, a bash script has been written to automate the testing.
+In order to run the test suite do:
+
+```
+./provision/travis/run-tests.sh
+```
+
+This will:
+1. Run pytest
+2. Attempt to build the documentation
+3. Run `black --check` against the module code
+
+The Travis build will fail if any of the above fail.
 
