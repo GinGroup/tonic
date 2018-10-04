@@ -7,18 +7,24 @@ set -e
 #enable logging
 set -x
 
+pytestCommand="pytest --cov=tonic/ tonic test"
+blackCommand="black --check tonic/ test/"
+sphinxCommand="sphinx-build -b html doc/source/ doc/build/"
+
+
 if [ -z "$TEST_ENV" ]; then
-#No test environment is set, we run all the tests, build the docs and do black
-    pytest --cov=tonic/ tonic test
-    sphinx-build -b html doc/source/ doc/build/
-    black --check tonic/
+#No test environment is set, we run all the tests, build the docs and do black 
+    eval $pytestCommand
+    eval $sphinxCommand
+    eval $blackCommand
 elif [ "$TEST_ENV" = "py36-test" ]; then
-    pytest --cov=tonic/ tonic test
+    eval $pytestCommand
 elif [ "$TEST_ENV" = "doc" ]; then
-    sphinx-build -b html doc/source/ doc/build/
+    eval $sphinxCommand
 elif [ "$TEST_ENV" = "black" ]; then
-     black --check tonic/
+    eval $blackCommand
 else
     echo Uknown test environment
+    exit 1
 fi
 echo Passed tests
