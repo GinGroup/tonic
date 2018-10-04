@@ -8,19 +8,28 @@ FE Codebase for shape optimization in fluid problems
 Initial setup is via:
 
 1. Fork repositiory to your account via the Github website
-2. Clone repository:
+2. Clone repository with https:
 ```
 git clone https://github.com/USERNAME/tonic.git
+```
+Clone repository with ssh:
+```
+git clone git@github.com:GinGroup/tonic.git
 ```
 3. Install with pip:
 ```
  cd tonic
  pip install --user -e .
 ```
-4. Set upstream remote.
+4. Set upstream remote with https:
 ```
 git remote add upstream https://github.com/gingroup/tonic.git
 ```
+Set upstream remote with ssh:
+```
+git remote add upstream git@github.com:GinGroup/tonic.git
+```
+
 
 When you want to write some code:
 
