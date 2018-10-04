@@ -14,7 +14,7 @@ git clone https://github.com/USERNAME/tonic.git
 ```
 Clone repository with ssh:
 ```
-git clone git@github.com:GinGroup/tonic.git
+git clone git@github.com:USERNAME/tonic.git
 ```
 3. Install with pip:
 ```
