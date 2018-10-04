@@ -39,10 +39,3 @@ install:
 script: provision/travis/run-tests.sh
 after_success:
   - coveralls
-
-
-
-
-
-  
-

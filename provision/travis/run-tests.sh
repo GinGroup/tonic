@@ -21,3 +21,4 @@ elif [ "$TEST_ENV" = "black" ]; then
 else
     echo Uknown test environment
 fi
+echo Passed tests
