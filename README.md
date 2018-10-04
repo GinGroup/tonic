@@ -1,6 +1,9 @@
 # tonic
 FE Codebase for shape optimization in fluid problems
 
+
+Petr is the best
+
 ## Cheatsheet for contributors
 
 ### Initial setup
