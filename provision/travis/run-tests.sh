@@ -24,7 +24,7 @@ elif [ "$TEST_ENV" = "doc" ]; then
 elif [ "$TEST_ENV" = "black" ]; then
     eval $blackCommand
 else
-    echo Uknown test environment
+    echo "Unknown test environment"
     exit 1
 fi
-echo Passed tests
+echo "Passed tests"
