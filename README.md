@@ -1,4 +1,8 @@
 # tonic
+
+[![Build Status](https://travis-ci.org/GinGroup/tonic.svg?branch=master)](https://travis-ci.org/GinGroup/tonic) 
+[![Coverage Status](https://coveralls.io/repos/github/GinGroup/tonic/badge.svg?branch=master)](https://coveralls.io/github/GinGroup/tonic?branch=master)
+
 FE Codebase for shape optimization in fluid problems
 
 ## Cheatsheet for contributors
