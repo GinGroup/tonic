@@ -1,4 +1,4 @@
-'''
+"""
     This is a generic Parameter class, and a ChildParameter class.
 
     The Parameter class allows us to generate a parameter object,
@@ -19,13 +19,15 @@
         2. Parameter attribute is_variable
             I can see why we might need it, but perhaps the concept
             should be more clear.
-'''
+"""
 
 import sympy
 
-class Parameter():
+
+class Parameter:
     _parameters_counter = 1
-    def __init__(self, value, is_variable = True, name = "p_"):
+
+    def __init__(self, value, is_variable=True, name="p_"):
         self.value = value
         self.is_variable = is_variable
 
@@ -33,16 +35,20 @@ class Parameter():
         Parameter._parameters_counter += 1
 
         self.children = []
-    
+
     def __str__(self):
-        _parameter_info = {"name": self.symbol, "value": self.value, "is_variable": self.is_variable}
-        return str(_parameter_info) + '\n'
+        _parameter_info = {
+            "name": self.symbol,
+            "value": self.value,
+            "is_variable": self.is_variable,
+        }
+        return str(_parameter_info) + "\n"
 
     def __repr__(self):
         return self.__str__()
 
     def __add__(self, other):
-        '''
+        """
         Addition rules:
             - Parameter + int / float -> ChildParameter
                 Adding number to a parameter does not introduce a new
@@ -54,81 +60,93 @@ class Parameter():
                 object when adding one variable parameters to another.
                 The construction is meaningless, but for debugging purpose
                 it is possible.
-        '''
-        if (isinstance(other, int) or isinstance(other, float)):
+        """
+        if isinstance(other, int) or isinstance(other, float):
             return ChildParameter(self, self.symbol + other)
-        elif (isinstance(other, Parameter) or isinstance(other, ChildParameter)):
+        elif isinstance(other, Parameter) or isinstance(other, ChildParameter):
             return self.value + other.value
         else:
             raise ValueError("int, float value or Parameter is required")
-    
+
     def __radd__(self, other):
         return self.__add__(other)
 
     def __sub__(self, other):
-        if (isinstance(other, int) or isinstance(other, float)):
+        if isinstance(other, int) or isinstance(other, float):
             return self + (-other)
-        elif (isinstance(other, Parameter) or isinstance(other, ChildParameter)):
+        elif isinstance(other, Parameter) or isinstance(other, ChildParameter):
             return self.value - other.value
         else:
             raise ValueError("int, float value or Parameter is required")
 
     def __rsub__(self, other):
-        if (isinstance(other, int) or isinstance(other, float)):
+        if isinstance(other, int) or isinstance(other, float):
             return other + ChildParameter(self, -self.symbol)
-        elif (isinstance(other, Parameter) or isinstance(other, ChildParameter)):
+        elif isinstance(other, Parameter) or isinstance(other, ChildParameter):
             return other.value - self.value
         else:
             raise ValueError("int, float value or Parameter is required")
 
     def __iadd__(self, other):
-        if (isinstance(other, int) or isinstance(other, float) or isinstance(other, Parameter)):
+        if (
+            isinstance(other, int)
+            or isinstance(other, float)
+            or isinstance(other, Parameter)
+        ):
             self.value += other.value
             return self
         else:
             raise ValueError("int, float value or Parameter is required")
-    
+
     def __mul__(self, other):
-        if (isinstance(other, int) or isinstance(other, float)):
+        if isinstance(other, int) or isinstance(other, float):
             return ChildParameter(self, self.symbol * other)
-        elif (isinstance(other, Parameter) or isinstance(other, ChildParameter)):
+        elif isinstance(other, Parameter) or isinstance(other, ChildParameter):
             return other.value * self.value
         else:
             raise ValueError("int, float value or Parameter is required")
-    
+
     def __rmul__(self, other):
         return self.__mul__(other)
 
     def add_child(self, child):
-        assert (child not in self.children)
+        assert child not in self.children
         self.children.append(child)
 
+
 class ChildParameter(Parameter):
-    '''
+    """
         ChildParameter allows us to create dependent parameters.
         There is only one level of relationship, i.e. 
             child(child(parent)) == child(parent)
-    '''
+    """
+
     def __init__(self, parent, symbolic_expression):
         self.symbol = symbolic_expression
         self.parent = parent
-    
+
     def __str__(self):
-        _child_parameter_info = {"value": self.value, "symbolic expression": self.symbol, "parent": self.parent}
+        _child_parameter_info = {
+            "value": self.value,
+            "symbolic expression": self.symbol,
+            "parent": self.parent,
+        }
         return str(_child_parameter_info)
-    
+
     @property
     def value(self):
         return self.symbol.subs(self.parent.symbol, self.parent.value)
-    
+
     def set_parent(self, parent):
-        if (isinstance(parent, ChildParameter)):
+        if isinstance(parent, ChildParameter):
             self._parent = parent.parent
-        elif (isinstance(parent, Parameter)):
+        elif isinstance(parent, Parameter):
             self._parent = parent
         else:
-            raise ValueError("Cannot connect to non-Parameter object. Parameter of ChildParameter is required")
-        
+            raise ValueError(
+                "Cannot connect to non-Parameter object. Parameter of ChildParameter is required"
+            )
+
         self._parent.add_child(self)
 
     def get_parent(self):
