@@ -138,23 +138,3 @@ class ChildParameter(Parameter):
 
     def add_child(self, child):
         self.parent.add_child(self)
-
-if __name__ == "__main__":
-    p1 = Parameter(0., is_variable=False)
-    p2 = Parameter(1.)
-
-    assert (p1 + p2 == 1.)
-    assert (p1 - p2 == -1.)
-
-    child = p1 + 3.
-    assert(child.value == 3.)
-    assert(child.parent == p1)
-    assert(child.parent != p2)
-
-    child2 = child * 2.
-    assert(child2.value == 6.)
-    assert(child2.parent == p1)
-
-
-    
-    
